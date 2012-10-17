@@ -18,9 +18,9 @@ git pull -s recursive -X theirs upstream master
 ```
 
 Edit sentry.conf.py:
-  ```
-  SENTRY_KEY = 'super_secret_key'
-  ```
+```
+SENTRY_KEY = 'super_secret_key'
+```
 
 Then push the repo upstream
 
@@ -28,7 +28,27 @@ Then push the repo upstream
 git push
 ```
 
+Create superuser
+* login to rhcloud
+```
+ssh c8812345:123214@<app_name>-namespace.rhcloud.com
+```
+
+* activate virtual env
+```
+source ${OPENSHIFT_DATA_DIR}/${OPENSHIFT_APP_NAME}/bin/activate
+```
+
+* create superuser
+```
+sentry --config=$OPENSHIFT_REPO_DIR/sentry.conf.py createsuperuser
+```
+
+
+
 **Warning:**
+You need to create superuser via ssh
+
 On every deployment re-creating the python virtual environment
 
 Comment string at `.openshift/action_hooks/deploy` after first push to OpenShift:
