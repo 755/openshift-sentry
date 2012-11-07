@@ -12,7 +12,7 @@ rhc app cartridge add -c mysql-5.1 -a <app_name>
 Add this upstream repo
 
 ```
-cd django
+cd <app_name>
 git remote add upstream -m master git://github.com/755/openshift-sentry.git
 git pull -s recursive -X theirs upstream master
 ```
