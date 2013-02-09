@@ -1,4 +1,3 @@
-
 import os.path
 
 CONF_ROOT = os.path.dirname(__file__)
@@ -7,10 +6,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': os.environ['OPENSHIFT_APP_NAME'],  # Or path to database file if using sqlite3.
-        'USER': os.environ['OPENSHIFT_DB_USERNAME'],                      # Not used with sqlite3.
-        'PASSWORD': os.environ['OPENSHIFT_DB_PASSWORD'],                  # Not used with sqlite3.
-        'HOST': os.environ['OPENSHIFT_DB_HOST'],                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': os.environ['OPENSHIFT_DB_PORT'],                      # Set to empty string for default. Not used with sqlite3.
+        'USER': os.environ['OPENSHIFT_MYSQL_DB_USERNAME'],                      # Not used with sqlite3.
+        'PASSWORD': os.environ['OPENSHIFT_MYSQL_DB_PASSWORD'],                  # Not used with sqlite3.
+        'HOST': os.environ['OPENSHIFT_MYSQL_DB_HOST'],                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': os.environ['OPENSHIFT_MYSQL_DB_PORT'],                      # Set to empty string for default. Not used with sqlite3.
     }
 }
 
@@ -30,9 +29,9 @@ SENTRY_WEB_OPTIONS = {
     'workers': 3,  # the number of gunicorn workers
     # 'worker_class': 'gevent',
     'daemon':True,
-    'pid': '%s/%s' % (os.environ['OPENSHIFT_RUNTIME_DIR'],'gunicorn.pid'), # gunicorn pid file
-    'log-file': '%s/%s' % (os.environ['OPENSHIFT_LOG_DIR'],'gunicorn_out.log'), # gunicorn the Error log file
-    #'access-logfile': '%s%s' % (os.environ['OPENSHIFT_LOG_DIR'],'gunicorn_access.log'), # gunicorn the Error log file
+    'pid': '%s/%s' % (os.environ['OPENSHIFT_DATA_DIR'],'gunicorn.pid'), # gunicorn pid file
+    'log-file': '%s/%s' % (os.environ['OPENSHIFT_DIY_LOG_DIR'],'gunicorn_out.log'), # gunicorn the Error log file
+    #'access-logfile': '%s%s' % (os.environ['OPENSHIFT_DIY_LOG_DIR'],'gunicorn_access.log'), # gunicorn the Error log file
 
 }
 # Mail server configuration
