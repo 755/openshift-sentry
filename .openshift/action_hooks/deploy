@@ -4,7 +4,10 @@
 # up again.  This script gets executed directly, so it could be python, php,
 # ruby, etc.
 
-virtualenv --no-site-packages --clear $OPENSHIFT_DATA_DIR/$OPENSHIFT_APP_NAME
+if [ ! -f ${OPENSHIFT_DATA_DIR}${OPENSHIFT_APP_NAME}/bin/activate ];
+then
+    virtualenv --no-site-packages --clear $OPENSHIFT_DATA_DIR/$OPENSHIFT_APP_NAME
+fi
 
 source ${OPENSHIFT_DATA_DIR}/${OPENSHIFT_APP_NAME}/bin/activate
 export PIP_DOWNLOAD_CACHE=${OPENSHIFT_TMP_DIR}.pip/cache
