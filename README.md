@@ -49,9 +49,3 @@ sentry --config=$OPENSHIFT_REPO_DIR/sentry.conf.py createsuperuser
 **Warning:**
 You need to create superuser via ssh
 
-On every deployment re-creating the python virtual environment
-
-Comment string at `.openshift/action_hooks/deploy` after first push to OpenShift:
-```
-virtualenv --no-site-packages --clear $OPENSHIFT_DATA_DIR/$OPENSHIFT_APP_NAME
-```
