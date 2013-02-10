@@ -6,7 +6,7 @@
 
 if [ ! -f ${OPENSHIFT_DATA_DIR}${OPENSHIFT_APP_NAME}/bin/activate ];
 then
-    virtualenv --no-site-packages --clear $OPENSHIFT_DATA_DIR/$OPENSHIFT_APP_NAME
+    virtualenv $OPENSHIFT_DATA_DIR/$OPENSHIFT_APP_NAME
 fi
 
 source ${OPENSHIFT_DATA_DIR}/${OPENSHIFT_APP_NAME}/bin/activate
