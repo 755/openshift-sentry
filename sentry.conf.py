@@ -21,7 +21,7 @@ except KeyError:
 
 DATABASES['default'].update({
     'USER': os.environ['OPENSHIFT_%s_DB_USERNAME' % env_db_name ],      # Not used with sqlite3.
-    'PASSWORD': os.environ['OPENSHIFT_%sL_DB_PASSWORD' % env_db_name],  # Not used with sqlite3.
+    'PASSWORD': os.environ['OPENSHIFT_%s_DB_PASSWORD' % env_db_name],  # Not used with sqlite3.
     'HOST': os.environ['OPENSHIFT_%s_DB_HOST' % env_db_name],           # Set to empty string for localhost. Not used with sqlite3.
     'PORT': os.environ['OPENSHIFT_%s_DB_PORT' % env_db_name],           # Set to empty string for default. Not used with sqlite3.
 })
