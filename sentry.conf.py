@@ -2,16 +2,30 @@ import os.path
 
 CONF_ROOT = os.path.dirname(__file__)
 
+# For Sentry on Openshift, choose either mysql or postgresql_psycopg2 for ENGINE
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': os.environ['OPENSHIFT_APP_NAME'],  # Or path to database file if using sqlite3.
-        'USER': os.environ['OPENSHIFT_MYSQL_DB_USERNAME'],                      # Not used with sqlite3.
-        'PASSWORD': os.environ['OPENSHIFT_MYSQL_DB_PASSWORD'],                  # Not used with sqlite3.
-        'HOST': os.environ['OPENSHIFT_MYSQL_DB_HOST'],                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': os.environ['OPENSHIFT_MYSQL_DB_PORT'],                      # Set to empty string for default. Not used with sqlite3.
     }
 }
+
+try:
+    env_db_name = {
+        'django.db.backends.mysql': 'MYSQL',
+        'django.db.backends.postgresql_psycopg2': 'POSTGRESQL'
+    }[DATABASES['default']['ENGINE']]
+except KeyError:
+    import sys
+    sys.exit("Please set the database engine to django.db.backends.mysql or django.db.backends.postgresql_psycopg2 for this Sentry Openshift setup.")
+
+DATABASES['default'].update({
+    'USER': os.environ['OPENSHIFT_%s_DB_USERNAME' % env_db_name ],      # Not used with sqlite3.
+    'PASSWORD': os.environ['OPENSHIFT_%sL_DB_PASSWORD' % env_db_name],  # Not used with sqlite3.
+    'HOST': os.environ['OPENSHIFT_%s_DB_HOST' % env_db_name],           # Set to empty string for localhost. Not used with sqlite3.
+    'PORT': os.environ['OPENSHIFT_%s_DB_PORT' % env_db_name],           # Set to empty string for default. Not used with sqlite3.
+})
+
 
 # Edit this!
 SENTRY_KEY = 'super_secret_key'
