@@ -24,7 +24,7 @@ For **postgresql** (may be your preference, or installing mysql is having issues
 rhc cartridge add postgresql-8.4 -a <app_name>
 ```
 
-_note: if you have an older version of rhc you may need to use the syntax `rhc app cartridge add <db_engine> -a <app_name>`_
+_note: if you have an older version of rhc you may need to use the syntax `rhc app cartridge add -c <db_cartrige> -a <app_name>`_
 
 Add this upstream repo
 
