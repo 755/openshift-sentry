@@ -1,4 +1,7 @@
 ## pip project requirements
 
+# Uncomment the database you want to use
 MySQL-python
+#psycopg2==2.4.5
+
 sentry
