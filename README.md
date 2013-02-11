@@ -12,6 +12,8 @@ rhc app create -a <app_name> -t diy-0.1
 
 Choose a database engine to install.
 
+_note: if you have an older version of rhc you may need to use the syntax `rhc app cartridge add -c <db_cartrige> -a <app_name>`_
+
 For **mysql** (the default setup for this repo):
 
 ```
@@ -23,8 +25,6 @@ For **postgresql** (may be your preference, or installing mysql is having issues
 ```
 rhc cartridge add postgresql-8.4 -a <app_name>
 ```
-
-_note: if you have an older version of rhc you may need to use the syntax `rhc app cartridge add -c <db_cartrige> -a <app_name>`_
 
 Add this upstream repo
 
