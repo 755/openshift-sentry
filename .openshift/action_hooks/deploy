@@ -4,14 +4,7 @@
 # up again.  This script gets executed directly, so it could be python, php,
 # ruby, etc.
 
-if [ ! -f ${OPENSHIFT_DATA_DIR}${OPENSHIFT_APP_NAME}/bin/activate ];
-then
-    virtualenv $OPENSHIFT_DATA_DIR/$OPENSHIFT_APP_NAME
-fi
-
 source ${OPENSHIFT_DATA_DIR}/${OPENSHIFT_APP_NAME}/bin/activate
-export PIP_DOWNLOAD_CACHE=${OPENSHIFT_TMP_DIR}.pip/cache
 
-pip install --log=${OPENSHIFT_TMP_DIR}.pip/pip.log -r ${OPENSHIFT_REPO_DIR}requirements.txt
-
+echo "run sentry upgrade"
 sentry --config=$OPENSHIFT_REPO_DIR/sentry.conf.py upgrade

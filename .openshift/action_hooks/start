@@ -3,6 +3,10 @@
 # script. The application will work only if it binds to
 # $OPENSHIFT_INTERNAL_IP:8080
 
-source ${OPENSHIFT_DATA_DIR}${OPENSHIFT_APP_NAME}/bin/activate
+echo "start app"
+source ${OPENSHIFT_DATA_DIR}/${OPENSHIFT_APP_NAME}/bin/activate
 
-sentry --config=$OPENSHIFT_REPO_DIR/sentry.conf.py start
+#set sentry.conf path
+export SENTRY_CONF="$OPENSHIFT_REPO_DIR/sentry.conf.py"
+
+uwsgi -s $OPENSHIFT_INTERNAL_IP:$OPENSHIFT_INTERNAL_PORT --socket-protocol http --module sentry.wsgi:application --pp $OPENSHIFT_REPO_DIR/lib/python2.7/site-packages/sentry -d $OPENSHIFT_DIY_LOG_DIR/app.log --pidfile $OPENSHIFT_TMP_DIR/uwsgi.pid

@@ -5,7 +5,7 @@ CONF_ROOT = os.path.dirname(__file__)
 # For Sentry on Openshift, choose either mysql or postgresql_psycopg2 for ENGINE
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',  # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',  # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': os.environ['OPENSHIFT_APP_NAME'],  # Or path to database file if using sqlite3.
     }
 }
@@ -30,6 +30,41 @@ DATABASES['default'].update({
 # Edit this!
 SENTRY_KEY = 'super_secret_key'
 
+# If you're expecting any kind of real traffic on Sentry, we highly recommend configuring
+# the CACHES and Redis settings
+
+# You'll need to install the required dependencies for Memcached:
+#   pip install python-memcached
+#
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+#         'LOCATION': ['127.0.0.1:11211'],
+#     }
+# }
+
+# Buffers (combined with queueing) act as an intermediate layer between the database and
+# the storage API. They will greatly improve efficiency on large numbers of the same events
+# being sent to the API in a short amount of time.
+
+# SENTRY_USE_QUEUE = True
+# For more information on queue options, see the documentation for Celery:
+# http://celery.readthedocs.org/en/latest/
+# BROKER_URL = 'redis://localhost:6379'
+
+# You'll need to install the required dependencies for Redis buffers:
+#   pip install redis hiredis nydus
+#
+# SENTRY_BUFFER = 'sentry.buffer.redis.RedisBuffer'
+# SENTRY_REDIS_OPTIONS = {
+#     'hosts': {
+#         0: {
+#             'host': '127.0.0.1',
+#             'port': 6379,
+#         }
+#     }
+# }
+
 # Set this to false to require authentication
 SENTRY_PUBLIC = False
 
@@ -41,13 +76,9 @@ SENTRY_WEB_HOST = os.environ['OPENSHIFT_INTERNAL_IP']
 SENTRY_WEB_PORT = os.environ['OPENSHIFT_INTERNAL_PORT']
 SENTRY_WEB_OPTIONS = {
     'workers': 3,  # the number of gunicorn workers
-    # 'worker_class': 'gevent',
-    'daemon':True,
-    'pid': '%s/%s' % (os.environ['OPENSHIFT_DATA_DIR'],'gunicorn.pid'), # gunicorn pid file
-    'log-file': '%s/%s' % (os.environ['OPENSHIFT_DIY_LOG_DIR'],'gunicorn_out.log'), # gunicorn the Error log file
-    #'access-logfile': '%s%s' % (os.environ['OPENSHIFT_DIY_LOG_DIR'],'gunicorn_access.log'), # gunicorn the Error log file
-
+    'secure_scheme_headers': {'X-FORWARDED-PROTO': 'https'},
 }
+
 # Mail server configuration
 
 # For more information check Django's documentation:
