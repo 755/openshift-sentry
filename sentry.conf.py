@@ -72,8 +72,8 @@ SENTRY_PUBLIC = False
 # but proxies may interfere with this.
 # SENTRY_URL_PREFIX = 'http://sentry.example.com'  # No trailing slash!
 
-SENTRY_WEB_HOST = os.environ['OPENSHIFT_INTERNAL_IP']
-SENTRY_WEB_PORT = os.environ['OPENSHIFT_INTERNAL_PORT']
+SENTRY_WEB_HOST = os.environ['OPENSHIFT_DIY_IP']
+SENTRY_WEB_PORT = os.environ['OPENSHIFT_DIY_PORT']
 SENTRY_WEB_OPTIONS = {
     'workers': 3,  # the number of gunicorn workers
     'secure_scheme_headers': {'X-FORWARDED-PROTO': 'https'},
