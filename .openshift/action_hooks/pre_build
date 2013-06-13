@@ -12,3 +12,8 @@ fi
 source ${OPENSHIFT_DATA_DIR}/${OPENSHIFT_APP_NAME}/bin/activate
 export PIP_DOWNLOAD_CACHE=${OPENSHIFT_TMP_DIR}.pip/cache
 
+if [ -f ${OPENSHIFT_REPO_DIR}/requirements.txt ];
+then
+    pip install -r ${OPENSHIFT_REPO_DIR}/requirements.txt
+fi
+
