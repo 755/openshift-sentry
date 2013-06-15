@@ -7,4 +7,4 @@
 source ${OPENSHIFT_DATA_DIR}/${OPENSHIFT_APP_NAME}/bin/activate
 
 echo "run sentry upgrade"
-sentry --config=$OPENSHIFT_REPO_DIR/sentry.conf.py upgrade
+sentry --config=$OPENSHIFT_REPO_DIR/sentry.conf.py upgrade --noinput
